@@ -43,9 +43,11 @@ public class ConfigureMojo extends AbstractMojo {
             return;
         }
         String consulPrefix = prefix == null ? "" : prefix + "/";
-        properties.forEach((k, v) -> System.out.println(consulPrefix + k + ":" + v));
         ConsulClient consul = new ConsulClient(url);
-        properties.forEach((k, v) -> consul.setKVValue(consulPrefix + (String) k, (String) v));
+        properties.forEach((k, v) -> {
+            consul.setKVValue(consulPrefix + k, (String) v);
+            getLog().info(consulPrefix + k + ":" + v);
+        });
     }
 
 }
