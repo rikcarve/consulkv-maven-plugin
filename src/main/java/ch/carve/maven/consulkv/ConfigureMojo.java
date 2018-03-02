@@ -42,9 +42,10 @@ public class ConfigureMojo extends AbstractMojo {
             e.printStackTrace();
             return;
         }
-        properties.forEach((k, v) -> System.out.println(k + ":" + v));
+        String consulPrefix = prefix == null ? "" : prefix + "/";
+        properties.forEach((k, v) -> System.out.println(consulPrefix + k + ":" + v));
         ConsulClient consul = new ConsulClient(url);
-        properties.forEach((k, v) -> consul.setKVValue((String) k, (String) v));
+        properties.forEach((k, v) -> consul.setKVValue(consulPrefix + (String) k, (String) v));
     }
 
 }
