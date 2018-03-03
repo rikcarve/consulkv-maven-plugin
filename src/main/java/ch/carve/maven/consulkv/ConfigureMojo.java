@@ -32,7 +32,7 @@ public class ConfigureMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("start putting config to consul at: " + url);
         ConfigLoader loader = new ConfigLoader(project.getBasedir().getAbsolutePath(), getLog());
-        for (String configDir : configDirs) {
+        configDirs.forEach(configDir -> {
             Properties properties = loader.loadProperties(configDir);
             String consulPrefix = prefix == null ? "" : prefix + "/";
             ConsulClient consul = new ConsulClient(url);
@@ -40,7 +40,7 @@ public class ConfigureMojo extends AbstractMojo {
                 consul.setKVValue(consulPrefix + k, (String) v);
                 getLog().info("Put " + consulPrefix + k + ":" + v);
             });
-        }
+        });
     }
 
 }
