@@ -1,5 +1,6 @@
 package ch.carve.maven.consulkv;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -21,8 +22,8 @@ public class ConfigureMojo extends AbstractMojo {
     @Parameter(property = "prefix", defaultValue = "")
     private String prefix;
 
-    @Parameter(property = "config-dir", defaultValue = "src/main/resources")
-    private String configDir;
+    @Parameter(property = "config-dirs", defaultValue = "src/main/resources")
+    private List<String> configDirs;
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     private MavenProject project;
@@ -31,13 +32,15 @@ public class ConfigureMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("start putting config to consul at: " + url);
         ConfigLoader loader = new ConfigLoader(project.getBasedir().getAbsolutePath(), getLog());
-        Properties properties = loader.loadProperties(configDir);
-        String consulPrefix = prefix == null ? "" : prefix + "/";
-        ConsulClient consul = new ConsulClient(url);
-        properties.forEach((k, v) -> {
-            consul.setKVValue(consulPrefix + k, (String) v);
-            getLog().info(consulPrefix + k + ":" + v);
-        });
+        for (String configDir : configDirs) {
+            Properties properties = loader.loadProperties(configDir);
+            String consulPrefix = prefix == null ? "" : prefix + "/";
+            ConsulClient consul = new ConsulClient(url);
+            properties.forEach((k, v) -> {
+                consul.setKVValue(consulPrefix + k, (String) v);
+                getLog().info("Put " + consulPrefix + k + ":" + v);
+            });
+        }
     }
 
 }

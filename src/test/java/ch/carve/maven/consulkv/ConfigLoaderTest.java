@@ -18,7 +18,8 @@ public class ConfigLoaderTest {
     public void testLoadProperties() {
         ConfigLoader loader = new ConfigLoader("src/test/resources", log);
         Properties props = loader.loadProperties("");
-        Assert.assertEquals(2, props.size());
+        Assert.assertEquals(3, props.size());
         Assert.assertTrue(props.containsKey("db.url"));
+        Assert.assertTrue(props.containsKey("test2"));
     }
 }
