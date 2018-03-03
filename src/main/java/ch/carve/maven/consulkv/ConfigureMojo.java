@@ -1,9 +1,5 @@
 package ch.carve.maven.consulkv;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -34,14 +30,8 @@ public class ConfigureMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("start putting config to consul at: " + url);
-        Path path = Paths.get(project.getBasedir().toURI().resolve(configDir + "/config.properties"));
-        Properties properties = new Properties();
-        try {
-            properties.load(Files.newInputStream(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+        ConfigLoader loader = new ConfigLoader(project.getBasedir().getAbsolutePath(), getLog());
+        Properties properties = loader.loadProperties(configDir);
         String consulPrefix = prefix == null ? "" : prefix + "/";
         ConsulClient consul = new ConsulClient(url);
         properties.forEach((k, v) -> {
