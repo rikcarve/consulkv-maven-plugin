@@ -24,3 +24,6 @@ Configuration of an application is often tightly coupled with the feature/versio
 * **url**:        url to consul, e.g. localhost, or 192.168.99.100:8500
 * **prefix**:     prefix for the key, e.g. app --> app/key = value
 * **configDirs**: one or multiple **configDir** directories with property files
+
+## Link
+https://github.com/rikcarve/mp-config-consul
