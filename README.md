@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.carve/cpnsulkv-maven-plugin/badge.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/ch.carve/consulkv-maven-plugin/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.carve/consulkv-maven-plugin/badge.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/ch.carve/consulkv-maven-plugin/)
 
 # consulkv-maven-plugin
 Put application config into consul from your maven build.
