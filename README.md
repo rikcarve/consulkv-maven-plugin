@@ -9,7 +9,7 @@ Configuration of an application is often tightly coupled with the feature/versio
             <plugin>
                 <groupId>ch.carve</groupId>
                 <artifactId>consulkv-maven-plugin</artifactId>
-                <version>0.1-SNAPSHOT</version>
+                <version>0.1</version>
                 <configuration>
                     <url>localhost</url>
                     <configDirs>
