@@ -1,4 +1,5 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.carve/consulkv-maven-plugin/badge.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/ch.carve/consulkv-maven-plugin/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # consulkv-maven-plugin
 Put application config into consul from your maven build.
