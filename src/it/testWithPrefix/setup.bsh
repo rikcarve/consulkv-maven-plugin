@@ -1,0 +1,3 @@
+import com.pszymczyk.consul.ConsulStarterBuilder;
+
+context.put("consul", ConsulStarterBuilder.consulStarter().withHttpPort(10001).build().start());
