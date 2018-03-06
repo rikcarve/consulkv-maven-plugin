@@ -13,15 +13,25 @@ import org.apache.maven.project.MavenProject;
 
 import com.ecwid.consul.v1.ConsulClient;
 
-@Mojo(name = "configure", defaultPhase = LifecyclePhase.PROCESS_RESOURCES, threadSafe = true)
+@Mojo(name = "configure", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST, threadSafe = true)
 public class ConfigureMojo extends AbstractMojo {
 
+    /**
+     * Consul url in the format of "localhost:8500" or "localhost" (with default
+     * port 8500)
+     */
     @Parameter(property = "url", required = true)
     private String url;
 
+    /**
+     * Prefix used in consul key/value tree, e.g. "prefix/key = vakue"
+     */
     @Parameter(property = "prefix", defaultValue = "")
     private String prefix;
 
+    /**
+     * A list of directories which will be scanned for property files
+     */
     @Parameter(property = "config-dirs", defaultValue = "src/main/resources")
     private List<String> configDirs;
 
