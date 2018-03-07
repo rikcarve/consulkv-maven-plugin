@@ -4,17 +4,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
-
-import org.apache.maven.plugin.logging.Log;
+import java.util.function.Consumer;
 
 public class ConfigLoader {
 
     private String baseDir;
-    private Log log;
+    private Consumer<CharSequence> warn;
 
-    public ConfigLoader(String baseDir, Log log) {
+    public ConfigLoader(String baseDir, Consumer<CharSequence> warn) {
         this.baseDir = baseDir;
-        this.log = log;
+        this.warn = warn;
     }
 
     public Properties loadProperties(String folder) {
@@ -27,12 +26,12 @@ public class ConfigLoader {
                         try {
                             props.load(Files.newInputStream(p));
                         } catch (IOException e) {
-                            log.warn("Failed to load properties from " + p.toString());
+                            warn.accept("Failed to load properties from " + p.toString());
                         }
                         allProperties.putAll(props);
                     });
         } catch (IOException e) {
-            log.warn("Failed to walk " + Paths.get(baseDir, folder));
+            warn.accept("Failed to walk " + Paths.get(baseDir, folder));
         }
         return allProperties;
     }

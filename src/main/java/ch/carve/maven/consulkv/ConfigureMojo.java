@@ -2,6 +2,7 @@ package ch.carve.maven.consulkv;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -13,6 +14,12 @@ import org.apache.maven.project.MavenProject;
 
 import com.ecwid.consul.v1.ConsulClient;
 
+/**
+ * consulkv:configure goal
+ * 
+ * @author Arik Dasen
+ *
+ */
 @Mojo(name = "configure", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST, threadSafe = true)
 public class ConfigureMojo extends AbstractMojo {
 
@@ -41,15 +48,27 @@ public class ConfigureMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("start putting config to consul at: " + url);
-        ConfigLoader loader = new ConfigLoader(project.getBasedir().getAbsolutePath(), getLog());
+        ConfigLoader loader = new ConfigLoader(project.getBasedir().getAbsolutePath(), getLog()::warn);
+        ConsulClient consul = new ConsulClient(url);
         configDirs.forEach(configDir -> {
             Properties properties = loader.loadProperties(configDir);
-            String consulPrefix = prefix == null ? "" : prefix + "/";
-            ConsulClient consul = new ConsulClient(url);
-            properties.forEach((k, v) -> {
-                consul.setKVValue(consulPrefix + k, (String) v);
-                getLog().info("Put " + consulPrefix + k + ":" + v);
-            });
+            configureConsul(consul, properties, prefix, getLog()::info);
+        });
+    }
+
+    /**
+     * Put key value pairs specified as properties into consul with a prefix
+     * 
+     * @param consul
+     * @param properties
+     * @param prefix
+     * @param log
+     */
+    public static void configureConsul(ConsulClient consul, Properties properties, String prefix, Consumer<CharSequence> log) {
+        String consulPrefix = prefix == null ? "" : prefix + "/";
+        properties.forEach((k, v) -> {
+            consul.setKVValue(consulPrefix + k, (String) v);
+            log.accept("Put " + consulPrefix + k + ":" + v);
         });
     }
 
