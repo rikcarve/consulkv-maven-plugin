@@ -1,6 +1,0 @@
-import com.ecwid.consul.v1.ConsulClient;
-
-ConsulClient consul = new ConsulClient("localhost:10001");
-String value = consul.getKVValue("hello/hello-prefix").getValue().getDecodedValue();
-context.get("consul").close();
-return "maven say".equals(value);
