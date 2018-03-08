@@ -52,6 +52,7 @@ public class ConsulKvCli {
         } catch (ParseException e) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("ConsulKvCli", options);
+            System.exit(1);
         }
         return cmd;
     }
