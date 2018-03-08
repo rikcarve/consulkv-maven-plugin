@@ -22,6 +22,8 @@ public class ConsulKvCli {
         CommandLine cmd = parseCommandLine(args);
 
         if (!cmd.hasOption("configDirs")) {
+            System.out.println("command line args error: " + Arrays.toString(args));
+            System.out.println("configDirs parameter is mandatory");
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("ConsulKvCli", options);
             System.exit(1);
@@ -50,6 +52,7 @@ public class ConsulKvCli {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
+            System.out.println("command line args error: " + Arrays.toString(args));
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("ConsulKvCli", options);
             System.exit(1);

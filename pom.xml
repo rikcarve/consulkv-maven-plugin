@@ -193,6 +193,54 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.24.0</version>
+                        <configuration>
+                            <dockerHost>${my.docker.host}</dockerHost>
+                            <certPath>${my.docker.certs}</certPath>
+                            <images>
+                                <image>
+                                    <name>rikcarve/consulkv</name>
+                                    <build>
+                                        <from>openjdk:8-jre-alpine</from>
+                                        <assembly>
+                                            <mode>dir</mode>
+                                            <basedir>/</basedir>
+                                            <inline>
+                                                <files>
+                                                    <file>
+                                                        <source>target/${project.build.finalName}.jar</source>
+                                                        <outputDirectory>/</outputDirectory>
+                                                    </file>
+                                                </files>
+                                            </inline>
+                                        </assembly>
+                                        <entryPoint>
+                                            <arg>java</arg>
+                                            <arg>-jar</arg>
+                                            <arg>${project.build.finalName}.jar</arg>
+                                        </entryPoint>
+                                        <!-- <cmd>java -jar ${project.build.finalName}.jar -configDirs</cmd> -->
+                                    </build>
+                                    <run>
+                                        <skip>true</skip>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>docker:build</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
