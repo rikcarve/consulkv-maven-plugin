@@ -30,3 +30,28 @@ Configuration of an application is often tightly coupled with the feature/versio
 
 ## Link
 https://github.com/rikcarve/mp-config-consul
+
+## CLI
+There's also a cli version which can be used for staging and production deployment in case maven is not option there. You can build it through:
+```bash
+mvn package -Pcli
+```
+### Usage:
+```bash
+usage: ConsulKvCli
+ -configDirs <arg>   comma separated list of directories (absolute)
+                     containing property files
+ -prefix <arg>       consul key prefix
+ -url <arg>          consul url
+```
+
+## CLI docker image
+In case you can use docker (and I hope you can), there's also a docker image :-)
+### Build
+```bash
+mvn package docker:build -Pcli
+```
+### Run
+```bash
+docker run rikcarve/consulkv -configDirs /patch/to/config
+```
