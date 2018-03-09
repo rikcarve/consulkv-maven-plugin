@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ch.carve</groupId>
     <artifactId>consulkv-maven-plugin-test</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
                 <groupId>ch.carve</groupId>
                 <artifactId>consulkv-maven-plugin</artifactId>
-                <version>0.2-SNAPSHOT</version>
+                <version>0.2</version>
                 <configuration>
                     <url>localhost:10001</url>
                     <configDirs>

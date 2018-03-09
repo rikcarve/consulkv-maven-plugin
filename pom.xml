@@ -3,9 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ch.carve</groupId>
     <artifactId>consulkv-maven-plugin</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>maven-plugin</packaging>
-
+    <name>consulkv-maven-plugin</name>
+    <description>A maven plugin to put application configuration into consul</description>
+    <url>https://github.com/rikcarve/consulkv-maven-plugin</url>
+    
+    <developers>
+        <developer>
+            <name>Arik Dasen</name>
+            <organizationUrl>https://github.com/rikcarve</organizationUrl>
+        </developer>
+    </developers>
     <licenses>
         <license>
             <name>MIT License</name>
