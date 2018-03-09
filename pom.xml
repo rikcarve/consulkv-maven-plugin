@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ch.carve</groupId>
     <artifactId>consulkv-maven-plugin</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>consulkv-maven-plugin</name>
     <description>A maven plugin to put application configuration into consul</description>
